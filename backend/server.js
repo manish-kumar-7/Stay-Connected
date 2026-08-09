@@ -48,7 +48,7 @@ const io = new Server(server, {
 const onlineUsers = new Map();
 
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
+ // console.log("User connected:", socket.id);
 
   // User joins chat
   socket.on("join-chat", (username) => {
@@ -66,12 +66,12 @@ io.on("connection", (socket) => {
     // Add this socket
     onlineUsers.get(username).add(socket.id);
 
-    console.log(`${username} joined the chat`);
+   // console.log(`${username} joined the chat`);
 
     // Get unique online usernames
     const users = Array.from(onlineUsers.keys());
 
-    console.log("Online users:", users);
+   // console.log("Online users:", users);
 
     // Send online users list to everyone
     io.emit("online-users", {
@@ -103,7 +103,7 @@ io.on("connection", (socket) => {
       // Send message to everyone
       io.emit("receive-message", newMessage);
     } catch (error) {
-      console.error("Socket message error:", error);
+      //console.error("Socket message error:", error);
 
       socket.emit("message-error", {
         message: "Failed to send message",
@@ -127,7 +127,7 @@ io.on("connection", (socket) => {
 
   // User disconnects
   socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
+   // console.log("User disconnected:", socket.id);
 
     // Only remove if this socket joined the chat
     if (socket.username && onlineUsers.has(socket.username)) {
@@ -141,7 +141,7 @@ io.on("connection", (socket) => {
       if (userSockets.size === 0) {
         onlineUsers.delete(socket.username);
 
-        console.log(`${socket.username} left the chat`);
+        //console.log(`${socket.username} left the chat`);
 
         // Notify other users
         socket.broadcast.emit("user-left", {
@@ -153,7 +153,7 @@ io.on("connection", (socket) => {
     // Send updated online users list
     const users = Array.from(onlineUsers.keys());
 
-    console.log("Online users:", users);
+   // console.log("Online users:", users);
 
     io.emit("online-users", {
       count: users.length,
