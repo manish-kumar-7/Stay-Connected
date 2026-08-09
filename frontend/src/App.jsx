@@ -25,7 +25,7 @@ function App() {
         <div className="login-card">
           <div className="logo">V</div>
 
-          <h1>Vedaz Chat</h1>
+          <h1>Stay Connected</h1>
 
           <p>Join the conversation and start chatting in real time.</p>
 
